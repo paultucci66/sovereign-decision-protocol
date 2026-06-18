@@ -130,6 +130,44 @@ AI systems SHALL NOT be the source of authority.
 
 ---
 
+## Relationship to Transaction-Layer Protocols
+
+SDP operates at the decision layer. It sits above transaction-layer
+protocols such as the Agent Payments Protocol (AP2) and x402.
+
+Transaction-layer protocols answer a bounded question: is this specific
+transaction authorized, by a verifiable mandate, and executed correctly
+between parties? Their primitive is the mandate — a signed, scoped grant
+authorizing a single transaction. They make an individual agent-to-agent
+exchange trustworthy.
+
+SDP does not authorize or execute transactions. It records the decision
+that a transaction implements: who decided, under what authority, against
+which policy, with what expected outcome, and what was learned. A mandate
+at the transaction layer is one input to a Decision Object — it is captured
+as evidence or as an Action Object linked to the governing decision.
+
+The two layers are complementary, not competing:
+
+| Layer | Question | Primitive |
+|---|---|---|
+| Transaction (AP2, x402) | Is this transaction authorized and correctly executed? | Mandate |
+| Decision (SDP) | Was the decision this transaction carries out actually sanctioned? | Decision Object |
+
+A mandate may be perfectly valid at the transaction layer and still
+implement a decision that no principal actually sanctioned. This is the
+gap SDP addresses. It is most acute where individually valid transactions
+aggregate into an outcome no one authorized — the condition described in
+Principle 6. Transaction-layer protocols validate each mandate in isolation
+and have no view of the aggregate. The Decision Object, with its
+`aggregate_intent` field and linked decision chain, does.
+
+SDP therefore complements transaction-layer infrastructure. Where AP2 and
+x402 establish that a transaction is trustworthy, SDP establishes that the
+decision behind it was authorized, recorded, and accountable.
+
+---
+
 ## The Six Pillars
 
 SDP is organized around six governance pillars. Each pillar contributes
