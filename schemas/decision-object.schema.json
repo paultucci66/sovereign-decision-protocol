@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sovereigndecisionprotocol.org/schemas/decision-object.schema.json",
+  "title": "SDP Decision Object",
+  "type": "object",
+  "required": ["decision_id", "decision_type", "status", "created_at"],
+  "properties": {
+    "decision_id": { "type": "string" },
+    "decision_type": { "type": "string" },
+    "title": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "under_review", "approved", "rejected", "suspended", "revoked", "expired", "superseded"]
+    },
+    "materiality": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+    "risk_level": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+    "business_owner": { "type": ["string", "null"] },
+    "decision_owner": { "type": ["string", "null"] },
+    "requestor": { "type": ["string", "null"] },
+    "authority_record_id": { "type": ["string", "null"] },
+    "policy_set_ids": { "type": "array", "items": { "type": "string" } },
+    "evidence_ids": { "type": "array", "items": { "type": "string" } },
+    "context": { "type": "object" },
+    "expected_outcomes": { "type": "array" },
+    "actual_outcomes": { "type": "array" },
+    "conditions": { "type": "array" },
+    "dependencies": { "type": "array" },
+    "related_assets": { "type": "array" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "effective_from": { "type": ["string", "null"], "format": "date-time" },
+    "effective_until": { "type": ["string", "null"], "format": "date-time" },
+    "expires_at": { "type": ["string", "null"], "format": "date-time" },
+    "supersedes": { "type": ["string", "null"] },
+    "superseded_by": { "type": ["string", "null"] },
+    "learning_summary": { "type": ["string", "null"] }
+  }
+}
