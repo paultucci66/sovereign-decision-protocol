@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://sovereigndecisionprotocol.org/schemas/decision-object.schema.json",
+  "$id": "https://raw.githubusercontent.com/paultucci66/sovereign-decision-protocol/main/schemas/decision-object.schema.json",
   "title": "SDP Decision Object",
   "type": "object",
   "required": ["decision_id", "decision_type", "status", "created_at"],
