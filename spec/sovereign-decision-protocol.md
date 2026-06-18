@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Status:** Draft  
-**Maintained by:** Tempismo LLC  
+**Maintained by:** Paul Tucci  
 **License:** Apache 2.0
 
 ---
@@ -538,6 +538,6 @@ The Learning Enterprise becomes the outcome.
 
 ---
 
-*Sovereign Decision Protocol v0.1 — Tempismo LLC*  
+*Sovereign Decision Protocol v0.1 — Paul Tucci*  
 *This specification is published as an open standard.*  
 *Feedback and contributions welcome.*
