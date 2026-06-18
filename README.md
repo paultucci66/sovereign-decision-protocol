@@ -24,4 +24,4 @@ SDP gives organizations a common, auditable language for **who decided, what the
 
 ---
 
-Maintained by Tempismo LLC.
+Maintained by Paul Tucci.
