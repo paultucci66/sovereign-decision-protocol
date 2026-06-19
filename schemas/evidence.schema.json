@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/paultucci66/sovereign-decision-protocol/main/schemas/evidence.schema.json",
+  "title": "SDP Evidence Object",
+  "type": "object",
+  "required": ["evidence_id", "evidence_type", "title", "captured_at"],
+  "properties": {
+    "evidence_id": { "type": "string" },
+    "evidence_type": {
+      "type": "string",
+      "enum": ["data", "document", "signal", "prior_decision", "system_state", "external", "human_attestation"]
+    },
+    "title": { "type": "string" },
+    "source": { "type": ["string", "null"] },
+    "content_uri": { "type": ["string", "null"] },
+    "integrity_hash": { "type": ["string", "null"] },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "captured_by": { "type": ["string", "null"] }
+  }
+}

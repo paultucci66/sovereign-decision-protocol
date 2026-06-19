@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/paultucci66/sovereign-decision-protocol/main/schemas/action.schema.json",
+  "title": "SDP Action Object",
+  "type": "object",
+  "required": ["action_id", "decision_id", "action_type", "executed_by", "executed_at"],
+  "properties": {
+    "action_id": { "type": "string" },
+    "decision_id": { "type": "string" },
+    "action_type": { "type": "string" },
+    "description": { "type": ["string", "null"] },
+    "target_system": { "type": ["string", "null"] },
+    "target_resource": { "type": ["string", "null"] },
+    "executed_by": { "type": "string" },
+    "executed_at": { "type": "string", "format": "date-time" },
+    "parameters": { "type": "object" }
+  }
+}

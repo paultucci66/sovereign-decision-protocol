@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/paultucci66/sovereign-decision-protocol/main/schemas/authority.schema.json",
+  "title": "SDP Authority Object",
+  "type": "object",
+  "required": ["authority_id", "role", "scope", "granted_by", "granted_at"],
+  "properties": {
+    "authority_id": { "type": "string" },
+    "role": { "type": "string" },
+    "scope": { "type": "array", "items": { "type": "string" } },
+    "limits": { "type": "object" },
+    "delegation_chain": { "type": "array", "items": { "type": "string" } },
+    "granted_by": { "type": "string" },
+    "granted_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": ["string", "null"], "format": "date-time" }
+  }
+}

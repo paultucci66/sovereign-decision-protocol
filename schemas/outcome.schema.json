@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/paultucci66/sovereign-decision-protocol/main/schemas/outcome.schema.json",
+  "title": "SDP Outcome Object",
+  "type": "object",
+  "required": ["outcome_id", "decision_id", "description", "measured_at"],
+  "properties": {
+    "outcome_id": { "type": "string" },
+    "decision_id": { "type": "string" },
+    "description": { "type": "string" },
+    "metric": { "type": ["string", "null"] },
+    "expected_value": { "type": ["string", "null"] },
+    "actual_value": { "type": ["string", "null"] },
+    "variance": { "type": ["string", "null"] },
+    "variance_significance": {
+      "type": ["string", "null"],
+      "enum": ["none", "minor", "moderate", "material", "critical", null]
+    },
+    "measured_at": { "type": "string", "format": "date-time" },
+    "measured_by": { "type": ["string", "null"] }
+  }
+}
