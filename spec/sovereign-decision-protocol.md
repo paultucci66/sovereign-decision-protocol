@@ -1,8 +1,8 @@
 # Sovereign Decision Protocol (SDP)
 
-**Version:** 0.1  
-**Status:** Draft  
-**Maintained by:** Paul Tucci  
+**Version:** 0.1
+**Status:** Draft
+**Maintained by:** Paul Tucci
 **License:** Apache 2.0
 
 ---
@@ -168,18 +168,17 @@ decision behind it was authorized, recorded, and accountable.
 
 ---
 
-## The Six Pillars
+## The Five Proofs
 
-SDP is organized around six governance pillars. Each pillar contributes
-to the Decision Object. The Decision Object is the nexus of all six.
+SDP is organized around five governance proofs. Each proof contributes
+to the Decision Object. The Decision Object is the nexus of all five.
 
 ```
-Identity
-Authority
-Governance
-Memory
-Context
-Drift
+Identity   (WHO)
+Authority  (MAY)
+Governance (SHOULD)
+Decision   (DID)
+Memory     (LEARNED)
     ↓
 Decision Object
     ↓
@@ -188,18 +187,22 @@ Decision Record
 Organizational Learning
 ```
 
-**Identity** — Know who or what is participating in a decision.
+| Proof | Answers | Description |
+|---|---|---|
+| Identity | WHO | Know who or what is participating in a decision. |
+| Authority | MAY | Know who has the right to decide, and the scope and limits of that right. |
+| Governance | SHOULD | Know the policies, rules, constraints, and surrounding context that apply. |
+| Decision | DID | Record what was actually decided and what was done about it. |
+| Memory | LEARNED | Preserve institutional knowledge, prior decisions, and detected drift for future decisions. |
 
-**Authority** — Know who has the right to decide.
-
-**Governance** — Know the policies, rules, and constraints that apply.
-
-**Memory** — Preserve institutional knowledge and prior decisions.
-
-**Context** — Capture the circumstances surrounding the decision.
-
-**Drift** — Detect and respond when assumptions, policies, models,
-or outcomes diverge from expectations.
+Context (the circumstances surrounding a decision) is captured as part of
+**Governance** — see the `context` field on the Decision Object. Drift
+(divergence of assumptions, policies, models, or outcomes from
+expectations) is captured as part of **Memory** — see Outcome Objects,
+`variance`, and `learning_summary`. Both were treated as standalone
+pillars in earlier drafts of this specification; they are retained here
+as concepts within the five proofs above, not as separate proofs, to keep
+a single canonical framework.
 
 ---
 
@@ -217,12 +220,15 @@ Represents a material organizational decision.
 | `decision_type` | string | Classification of decision |
 | `title` | string | Human-readable description |
 | `description` | string | Full description and rationale |
-| `status` | enum | Current lifecycle status |
-| `authority` | Authority Object | Who authorized this decision |
+| `status` | enum | Current authorization state — see Authorization States below |
+| `stage` | enum | Current process phase — see Process Stages below |
+| `authority_record_id` | string | Reference to the Authority Object that authorized this decision |
 | `risk_level` | enum | low \| medium \| high \| critical |
 | `materiality` | enum | low \| medium \| high \| critical |
-| `owner` | string | Decision owner identity |
+| `business_owner` | string | Business unit or function accountable for the decision |
+| `decision_owner` | string | Individual identity who owns the decision |
 | `requestor` | string | Requesting party identity |
+| `policy_set_ids` | array | References to applicable policy sets |
 | `context` | object | Circumstances at decision time |
 | `aggregate_intent` | string | Intent of the full workflow chain |
 | `evidence_ids` | array | References to Evidence Objects |
@@ -231,8 +237,10 @@ Represents a material organizational decision.
 | `conditions` | array | Conditions attached to authorization |
 | `dependencies` | array | Decision IDs this decision depends on |
 | `workflow_id` | string | Groups decisions in a workflow chain |
+| `related_assets` | array | Other systems or assets referenced by this decision |
 | `created_at` | ISO8601 | Creation timestamp |
 | `effective_from` | ISO8601 | When decision takes effect |
+| `effective_until` | ISO8601 | When the decision's effect ends (if bounded) |
 | `expires_at` | ISO8601 | When authorization expires |
 | `supersedes` | string | Decision ID this supersedes |
 | `superseded_by` | string | Decision ID that supersedes this |
@@ -245,9 +253,10 @@ Represents a material organizational decision.
   "decision_id": "DEC-12345",
   "decision_type": "AI_DEPLOYMENT",
   "title": "Deploy Customer Service Agent",
-  "status": "APPROVED",
-  "risk_level": "HIGH",
-  "materiality": "HIGH",
+  "status": "approved",
+  "stage": "executed",
+  "risk_level": "high",
+  "materiality": "high",
   "aggregate_intent": "Automate tier-1 customer support to reduce response time",
   "workflow_id": "WF-891"
 }
@@ -280,8 +289,8 @@ Represents delegated decision authority.
   "role": "CISO",
   "scope": ["AI_DEPLOYMENT", "SECURITY_EXCEPTION"],
   "limits": {
-    "max_risk_level": "HIGH",
-    "requires_co_authorization_above": "CRITICAL"
+    "max_risk_level": "high",
+    "requires_co_authorization_above": "critical"
   }
 }
 ```
@@ -414,23 +423,52 @@ review requirements, and evidence requirements.
 
 ## Decision Lifecycle
 
+A Decision Object has two independent lifecycle dimensions, tracked by
+two separate fields. They answer different questions and SHALL NOT be
+collapsed into a single field.
+
+**`status`** answers: *is this decision currently authorized?* It is the
+authorization state machine.
+
+**`stage`** answers: *where is this decision in its operational process?*
+It is the process state machine. `stage` only advances while `status` is
+`approved`.
+
+### Authorization States (`status`)
+
 ```
-Proposed → Under Review → Approved → Executed → Monitored → Completed → Archived
-                        ↘ Rejected
-                                         ↘ Revoked (at any post-approval stage)
+proposed → under_review → approved → suspended / revoked / expired / superseded
+                        ↘ rejected
 ```
 
 | Status | Description |
 |---|---|
-| Proposed | Decision Object created, not yet evaluated |
-| Under Review | Under authority evaluation |
-| Approved | Authorized to proceed |
-| Rejected | Denied — do not proceed |
-| Executed | Action has been taken |
-| Monitored | Outcome tracking in progress |
-| Completed | Outcome recorded, learning captured |
-| Archived | Retained per policy, no active monitoring |
-| Revoked | Authorization withdrawn post-approval |
+| `proposed` | Decision Object created, not yet evaluated |
+| `under_review` | Under authority evaluation |
+| `approved` | Authorized to proceed |
+| `rejected` | Denied — do not proceed |
+| `suspended` | Authorization temporarily paused |
+| `revoked` | Authorization withdrawn post-approval |
+| `expired` | Authorization lapsed per `expires_at` |
+| `superseded` | Replaced by a newer Decision Object |
+
+### Process Stages (`stage`)
+
+```
+proposed → executed → monitored → completed → archived
+```
+
+| Stage | Description |
+|---|---|
+| `proposed` | No action taken yet |
+| `executed` | Action has been taken |
+| `monitored` | Outcome tracking in progress |
+| `completed` | Outcome recorded, learning captured |
+| `archived` | Retained per policy, no active monitoring |
+
+A Decision Object that is `rejected`, `revoked`, `suspended`, or `expired`
+at the `status` level halts at whatever `stage` it last reached and SHALL
+NOT advance further until and unless re-authorized.
 
 ---
 
@@ -440,7 +478,7 @@ The SDP MCP Interface provides a standard way for systems to interact
 with Decision Objects programmatically.
 
 ### `decision.create()`
-Creates a Decision Object in `Proposed` status.
+Creates a Decision Object with `status: proposed`.
 
 ### `decision.get()`
 Retrieves the current state of a Decision Object.
@@ -454,11 +492,12 @@ Returns disposition: `allow | deny | escalate | require_approval | require_evide
 
 ### `decision.record_action()`
 Associates an executed Action Object with a Decision Object.
-Confirms authorization before recording.
+Confirms authorization before recording. Advances `stage` to `executed`.
 
 ### `decision.record_outcome()`
 Associates measured Outcome Objects with a Decision Object.
-Triggers variance and drift evaluation.
+Triggers variance and drift evaluation. Advances `stage` toward
+`monitored` or `completed`.
 
 ### `decision.search()`
 Searches Decision Objects and Decision Records by structured query
@@ -538,6 +577,6 @@ The Learning Enterprise becomes the outcome.
 
 ---
 
-*Sovereign Decision Protocol v0.1 — Paul Tucci*  
-*This specification is published as an open standard.*  
+*Sovereign Decision Protocol v0.1 — Paul Tucci*
+*This specification is published as an open standard.*
 *Feedback and contributions welcome.*
