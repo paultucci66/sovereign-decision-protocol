@@ -8,9 +8,14 @@
     "decision_id": { "type": "string" },
     "decision_type": { "type": "string" },
     "title": { "type": "string" },
+    "description": { "type": ["string", "null"] },
     "status": {
       "type": "string",
       "enum": ["proposed", "under_review", "approved", "rejected", "suspended", "revoked", "expired", "superseded"]
+    },
+    "stage": {
+      "type": ["string", "null"],
+      "enum": ["proposed", "executed", "monitored", "completed", "archived", null]
     },
     "materiality": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
     "risk_level": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
@@ -21,10 +26,12 @@
     "policy_set_ids": { "type": "array", "items": { "type": "string" } },
     "evidence_ids": { "type": "array", "items": { "type": "string" } },
     "context": { "type": "object" },
+    "aggregate_intent": { "type": ["string", "null"] },
     "expected_outcomes": { "type": "array" },
     "actual_outcomes": { "type": "array" },
     "conditions": { "type": "array" },
     "dependencies": { "type": "array" },
+    "workflow_id": { "type": ["string", "null"] },
     "related_assets": { "type": "array" },
     "created_at": { "type": "string", "format": "date-time" },
     "effective_from": { "type": ["string", "null"], "format": "date-time" },
