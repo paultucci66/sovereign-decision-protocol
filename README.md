@@ -1,10 +1,16 @@
 # Sovereign Decision Protocol (SDP)
 
-## An Open Standard for Representing Consequential Decisions
+## A Medium of Exchange for Consequential Decisions
 
 The Sovereign Decision Protocol (SDP) is an open, vendor-neutral protocol for representing consequential decisions.
 
-SDP defines a common language for recording **who acted, what authority they possessed, which policies applied, what context and evidence were considered, what was decided, what was done, and what was learned.**
+It is intentionally small.
+
+It defines the Decision Object.
+
+It defines how decisions can be exchanged.
+
+It does not define the product that creates, governs, stores, or analyzes them.
 
 **SDP is not a product.**
 
@@ -16,35 +22,55 @@ Organizations own their decisions.
 
 ## Why SDP Exists
 
-Organizations have standardized networking, identity, payments, encryption, storage, and application integration.
+Organizations have standardized networks, identity, payments, messaging, APIs, and now AI.
 
 They have not standardized the decision itself.
 
-That gap is becoming material as AI systems, automated workflows, human reviewers, and enterprise applications increasingly participate in consequential organizational decisions.
+That gap matters because organizational judgment is increasingly fragmented across people, applications, documents, AI systems, workflows, and informal channels.
 
-AI governance is the first urgent use case.
+Transactions preserve what happened.
 
-It is not the limit of the protocol.
+Decisions explain why it happened.
 
-SDP exists to make decisions portable, auditable, verifiable, and interoperable across systems, vendors, organizations, and time.
+Authority explains who was allowed to make it happen.
 
-## Core Concept: The Decision Object
+SDP exists to make those decisions portable, auditable, verifiable, and interoperable across systems, vendors, organizations, and time.
 
-The Decision Object is the atomic unit of SDP.
+## What SDP Defines
 
-It is the authoritative record of why a consequential action occurred.
+At the core of SDP is the **Decision Object**.
 
-Applications execute work.
+A Decision Object is the portable record of a consequential decision.
 
-The Decision Object preserves the authority, context, policy basis, evidence, decision, outcome, and organizational memory associated with that work.
+It may reference:
 
-## SDP, DCP, and Applications
+- Identity
+- Authority
+- Policy
+- Context
+- Evidence
+- Materiality
+- Classification
+- Disposition
+- Outcome
+- Memory
+- Integrity metadata
+
+The Decision Object is the medium of exchange.
+
+The value built around it belongs in implementations.
+
+## Protocol vs. Product
 
 SDP defines the protocol.
 
-A Decision Control Plane (DCP) implements the orchestration layer for consequential decisions.
+A Decision Control Plane (DCP) is the product category that implements it.
 
-Applications produce and consume Decision Objects through SDP.
+A DCP may orchestrate identity, authority, policy, context, evidence, AI, human review, publication, audit, memory, analytics, and learning.
+
+Those are product responsibilities.
+
+They are not protocol requirements.
 
 ```text
 Applications
@@ -65,7 +91,7 @@ Kinsana is intended to be a Decision Control Plane implementation.
 
 Kinsana is not the protocol.
 
-## The Five Proofs of Organizational Trust
+## The Five Proofs
 
 | Proof | Question Answered |
 |-------|-------------------|
@@ -82,13 +108,15 @@ Kinsana is not the protocol.
 3. **The decision is the source.** Enterprise systems own operational state. Decision Objects preserve the intent, authority, and rationale behind consequential actions.
 4. **Context is referenced, not embedded.** SDP records verifiable references to context and evidence. The DCP may retrieve documents, files, web resources, prior decisions, or application data.
 5. **Materiality is contextual.** Organizations define which decisions are consequential through policy. SDP represents decisions once they are material.
+6. **Simplicity is the adoption strategy.** The protocol should remain small enough to implement and stable enough to trust.
 
 ## Repository Structure
 
-- `rfcs/` — SDP RFC-style specification documents
-- `docs/` — architecture, design principles, and explanatory material
+- `rfcs/` — RFC-style protocol documents
+- `docs/` — architecture, design principles, classification, and explanatory material
 - `schemas/` — JSON Schema definitions for core objects
 - `examples/` — sample Decision Objects and decision flows
+- `articles/` — public-facing articles and drafts
 - `research/` — supporting papers and background research
 
 ## Status
