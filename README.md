@@ -2,6 +2,14 @@
 
 ## A Medium of Exchange for Consequential Decisions
 
+Your company does not have a data problem.
+
+It has a memory problem.
+
+Organizations preserve transactions.
+
+They rarely preserve the decisions that explain them.
+
 The Sovereign Decision Protocol (SDP) is an open, vendor-neutral protocol for representing consequential decisions.
 
 It is intentionally small.
@@ -19,6 +27,16 @@ It is a protocol.
 Products implement the protocol.
 
 Organizations own their decisions.
+
+## Start Here
+
+- [Vision](VISION.md) — why SDP exists and what problem it addresses
+- [Principles](PRINCIPLES.md) — the design axioms behind the protocol
+- [Contributing](CONTRIBUTING.md) — how to challenge, improve, or extend SDP
+- [SDP-0001](rfcs/SDP-0001.md) — overview, scope, definitions, and boundaries
+- [RFC index](rfcs/README.md) — current and planned protocol documents
+- [Architecture](docs/architecture.md) — SDP, DCP, applications, and boundaries
+- [Classification](docs/classification.md) — public, private, shared, restricted, and compartmented patterns
 
 ## Why SDP Exists
 
@@ -127,4 +145,4 @@ This repository is intended to evolve as an open standards effort.
 
 Feedback, issues, and contributions are welcome under the Apache 2.0 license.
 
-Maintained by Paul Tucci.
+Initial author: Paul Tucci.
