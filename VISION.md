@@ -1,31 +1,46 @@
 # Vision
 
-The Sovereign Decision Protocol (SDP) exists to make consequential decisions first-class, portable, auditable, and interoperable objects.
+The Sovereign Decision Protocol (SDP) exists to make consequential decisions portable, auditable, verifiable, and interoperable.
 
-Organizations have always accumulated data.
+The enterprise already owns the what.
 
-They have rarely accumulated structured decision knowledge.
+The who and the why are where the value lives.
 
-SDP provides a standard representation for that knowledge.
+## The Problem
+
+Organizations accumulate data.
+
+They accumulate transactions.
+
+They accumulate documents.
+
+They rarely preserve judgment in a computable form.
+
+That judgment is scattered across enterprise systems, documents, conversations, AI interactions, and people.
+
+The organization retained the transaction.
+
+It lost the decision.
 
 ## The Long View
 
 SDP is designed for decades, not releases.
 
-The immediate need is AI governance. AI systems are forcing organizations to answer questions they often cannot answer cleanly today:
+The immediate pressure is AI governance.
 
-- Who authorized this action?
-- Under what policy?
-- Based on what context?
-- With what evidence?
-- What was the outcome?
+That is the forcing function.
+
+It is not the limit of the protocol.
+
+The same questions appear in procurement, finance, healthcare, security, hiring, customer operations, litigation, compliance, strategy, and eventually individual decision sovereignty:
+
+- Who acted?
+- Were they authorized?
+- Which policy applied?
+- What context and evidence mattered?
+- What was decided?
+- What changed afterward?
 - What did the organization learn?
-
-Those questions are not limited to AI.
-
-They apply to procurement, finance, healthcare, security, hiring, customer operations, litigation, compliance, strategy, and eventually individual decision sovereignty.
-
-AI governance is the forcing function.
 
 Consequential decision interoperability is the larger purpose.
 
@@ -41,21 +56,23 @@ HR systems own employee state.
 
 Identity systems own authentication state.
 
-But none of those systems is the authoritative source for why a consequential action occurred.
+None of them is the authoritative source for why a consequential action occurred.
 
 SDP places the Decision Object above operational systems.
 
 Applications execute work.
 
-Decision Objects preserve organizational intent.
+Decision Objects preserve organizational judgment.
 
 ## Protocol, Not Product
 
 SDP is not a product.
 
-It does not define a user interface, workflow engine, AI model, database, document store, policy engine, or identity provider.
+It does not define a user interface, workflow engine, AI model, database, document store, policy engine, analytics layer, or identity provider.
 
 It defines how consequential decisions are represented and exchanged.
+
+It is a medium of exchange.
 
 Products implement SDP.
 
@@ -63,9 +80,9 @@ Organizations own their decisions.
 
 ## Decision Control Plane
 
-A Decision Control Plane (DCP) is a product category that implements SDP.
+A Decision Control Plane (DCP) is the product category that implements SDP.
 
-A DCP orchestrates identity, authority, policy, context, evidence, AI services, human review, decision publication, audit, memory, and learning.
+A DCP orchestrates identity, authority, policy, context, evidence, AI services, human review, decision publication, audit, memory, analytics, and learning.
 
 The DCP is the product.
 
@@ -75,7 +92,9 @@ Applications such as billing platforms, CRMs, ERPs, HR systems, security tools, 
 
 ## Learning Organization
 
-The learning organization becomes possible when decisions are preserved as structured knowledge.
+Organizations do not become learning organizations by collecting more data.
+
+They become learning organizations by preserving judgment.
 
 A Decision Control Plane can reason over prior Decision Objects, compare expected outcomes with actual outcomes, identify drift, surface recurring failure modes, and improve future decision quality.
 
