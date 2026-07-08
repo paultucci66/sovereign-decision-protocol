@@ -36,8 +36,6 @@ Under what policy?
 
 Based on what evidence?
 
-What changed afterward?
-
 What did the organization learn?
 
 Most enterprise systems were not designed to answer those questions.
@@ -114,24 +112,6 @@ That separation is intentional.
 
 And clean.
 
-Protocols succeed when they remain simple.
-
-Products succeed by making them useful.
-
-HTTP did not monetize the web.
-
-Browsers, servers, CDNs, and platforms did.
-
-OAuth did not monetize identity.
-
-Identity platforms did.
-
-SDP should work the same way.
-
-The protocol should be small enough to adopt.
-
-The control plane should be powerful enough to matter.
-
 The enterprise already owns the what.
 
 The who and the why are where the value lives.
@@ -142,7 +122,7 @@ They become learning organizations by preserving judgment.
 
 That is the premise.
 
-The draft specification is public.
+The first draft of the Sovereign Decision Protocol is public.
 
 Read it.
 
