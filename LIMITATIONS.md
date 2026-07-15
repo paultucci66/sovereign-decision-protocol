@@ -26,4 +26,6 @@ The honest claim is narrower and still valuable:
 
 ## The one-sentence version
 
-Authority is not alignment. SDP makes it verifiable that an agent acted within granted bounds and that the bounds were enforced; it does not make the agent correct, uncompromised, or wise. Governed is not the same as safe, and any claim that treats them as equivalent is overclaiming.
+Authority is not alignment. SDP makes it verifiable that an agent acted within granted bounds and that the bounds were enforced; it does not make the agent correct, uncompromised, or wise.
+
+Governance is orthogonal to safety — a category apart, the way jurisdiction is orthogonal to whether a verdict is correct. A court can hold unquestioned authority to rule and rule wrongly; the authority was never the thing carrying the safety load. So it is here. No more than human government is safe. Bad governance is unsafe but no less governed. A perfectly governed agent can do real harm inside its envelope, and nothing in this protocol claims otherwise. Governed is not safe. We are saying so plainly, so that no one can say they were not warned.
