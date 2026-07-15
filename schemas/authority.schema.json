@@ -2,16 +2,53 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/paultucci66/sovereign-decision-protocol/main/schemas/authority.schema.json",
   "title": "SDP Authority Object",
+  "description": "Represents a grant: a principal's authorization to make a bounded class of decisions. See SDP-0003.",
   "type": "object",
-  "required": ["authority_id", "role", "scope", "granted_by", "granted_at"],
+  "required": ["authority_id", "role", "granted_by", "granted_at", "constraints"],
   "properties": {
     "authority_id": { "type": "string" },
     "role": { "type": "string" },
-    "scope": { "type": "array", "items": { "type": "string" } },
-    "limits": { "type": "object" },
-    "delegation_chain": { "type": "array", "items": { "type": "string" } },
+    "constraints": {
+      "type": "array",
+      "description": "Typed, decidability-classified bounds on the grant. Replaces the former free-text 'scope' array and untyped 'limits' object. Each item conforms to constraint.schema.json.",
+      "items": { "$ref": "constraint.schema.json" }
+    },
+    "delegation_chain": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Path by which authority reached the granting principal. Each registry-facing link MUST itself satisfy the registry-facing rule (SDP-0003 §7)."
+    },
     "granted_by": { "type": "string" },
     "granted_at": { "type": "string", "format": "date-time" },
-    "expires_at": { "type": ["string", "null"], "format": "date-time" }
+    "expires_at": { "type": ["string", "null"], "format": "date-time" },
+    "attestation": {
+      "type": ["object", "null"],
+      "description": "Signature(s) binding the grant to its issuer and, where applicable, the agent identity it authorizes. Cryptographic profile deferred to SDP-0007.",
+      "properties": {
+        "method": { "type": "string" },
+        "signatures": { "type": "array", "items": { "type": "object" } }
+      },
+      "additionalProperties": true
+    },
+    "status": {
+      "type": ["object", "null"],
+      "description": "Current validity of the grant, resolvable at or after decision time.",
+      "properties": {
+        "state": { "type": "string", "enum": ["active", "suspended", "revoked", "expired"] },
+        "as_of": { "type": "string", "format": "date-time" },
+        "resolver": { "type": "string", "description": "How a verifier obtains current status (endpoint or short-lived signed status reference)." }
+      },
+      "additionalProperties": true
+    },
+    "log_inclusion": {
+      "type": ["object", "null"],
+      "description": "Proof that this grant was recorded in a witnessing log before decisions made under it. A grant that is not logged is not valid. Profile deferred to SDP-0007.",
+      "properties": {
+        "log_id": { "type": "string" },
+        "inclusion_proof": { "type": "string" },
+        "recorded_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": true
+    }
   }
 }

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/paultucci66/sovereign-decision-protocol/main/schemas/constraint.schema.json",
+  "title": "SDP Authority Constraint",
+  "description": "A single bound on an Authority Record grant. Every constraint declares a decidability class (A deterministic, B classifier-mediated, C human-judgment) per SDP-0003. Only Class A constraints may be registry-facing.",
+  "type": "object",
+  "required": ["class", "type"],
+  "properties": {
+    "class": {
+      "type": "string",
+      "enum": ["A", "B", "C"],
+      "description": "Decidability class. A: deterministic. B: classifier-mediated. C: human judgment."
+    },
+    "type": {
+      "type": "string",
+      "description": "Predicate type. Class A types are enumerated below; class B uses 'Classifier'; class C uses 'HumanJudgment'.",
+      "enum": [
+        "MonetaryCap",
+        "AggregateCap",
+        "EnumConstraint",
+        "AllowList",
+        "DenyList",
+        "TimeWindow",
+        "Expiry",
+        "Jurisdiction",
+        "RateLimit",
+        "CoAuthorization",
+        "Exclusion",
+        "Classifier",
+        "HumanJudgment"
+      ]
+    },
+    "registry_facing": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this constraint is published for third-party verification. MUST be false unless class is 'A'."
+    },
+    "params": {
+      "type": "object",
+      "description": "Type-specific parameters. See per-type notes.",
+      "properties": {
+        "currency": { "type": "string", "description": "ISO 4217 code (MonetaryCap, AggregateCap)." },
+        "amount": { "type": "number", "description": "Cap amount (MonetaryCap)." },
+        "window": { "type": "string", "description": "ISO 8601 duration for the aggregation window (AggregateCap, RateLimit)." },
+        "dimension": { "type": "string", "description": "What is summed or counted (AggregateCap): 'amount', 'count', or a named exposure dimension." },
+        "limit": { "type": "number", "description": "Aggregate or rate ceiling (AggregateCap, RateLimit)." },
+        "taxonomy": { "type": "string", "description": "Code system identifier, e.g. 'UNSPSC', 'MCC', 'ISIC' (EnumConstraint, Jurisdiction). Required for EnumConstraint." },
+        "taxonomy_version": { "type": "string", "description": "Pinned taxonomy version. REQUIRED for Class A category constraints; an unpinned reference is not Class A." },
+        "codes": { "type": "array", "items": { "type": "string" }, "description": "Permitted code set (EnumConstraint, Jurisdiction, AllowList) or prohibited set (DenyList, Exclusion)." },
+        "not_before": { "type": "string", "format": "date-time", "description": "TimeWindow lower bound." },
+        "not_after": { "type": "string", "format": "date-time", "description": "TimeWindow upper bound / Expiry instant." },
+        "n": { "type": "integer", "description": "Required approvals (CoAuthorization n-of-m)." },
+        "m": { "type": "integer", "description": "Approver pool size (CoAuthorization n-of-m)." },
+        "patterns": { "type": "array", "items": { "type": "string" }, "description": "Prohibited action patterns (Exclusion)." },
+        "classifier_id": { "type": "string", "description": "Classifier identity (Class B). REQUIRED and disclosed if a Class B constraint is presented externally." },
+        "classifier_version": { "type": "string", "description": "Classifier version (Class B)." },
+        "threshold": { "type": "number", "description": "Confidence threshold below which the constraint escalates (Class B)." },
+        "standard": { "type": "string", "description": "The human-judgment standard invoked, e.g. 'commercially reasonable' (Class C)." }
+      },
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "registry-facing-requires-class-a: a registry_facing constraint MUST be class A.",
+      "if": { "properties": { "registry_facing": { "const": true } }, "required": ["registry_facing"] },
+      "then": { "properties": { "class": { "const": "A" } } }
+    },
+    {
+      "$comment": "class-B-uses-Classifier-type",
+      "if": { "properties": { "class": { "const": "B" } } },
+      "then": { "properties": { "type": { "const": "Classifier" } } }
+    },
+    {
+      "$comment": "class-C-uses-HumanJudgment-type",
+      "if": { "properties": { "class": { "const": "C" } } },
+      "then": { "properties": { "type": { "const": "HumanJudgment" } } }
+    }
+  ]
+}
