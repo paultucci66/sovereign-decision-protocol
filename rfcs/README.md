@@ -14,6 +14,7 @@ This directory contains RFC-style documents for the Sovereign Decision Protocol.
 | [SDP-0006](SDP-0006-Exchange-Format.md) | Exchange Format | Draft Skeleton | 0.1 | |
 | [SDP-0007](SDP-0007-Cryptographic-Integrity.md) | Cryptographic Integrity | Draft Skeleton | 0.1 | Will specify the attestation, status, and log-inclusion profile referenced by SDP-0003 §6 |
 | [SDP-0008](SDP-0008-Conformance.md) | Conformance Requirements | Draft | 0.2 | Normative. Level 0 Structural, Level 1 Verifiable-Scope, Level 2 Enforcing-Deployment (proxy position, fail closed). Levels stable; test-vector artifacts pending |
+| [SDP-0009](SDP-0009-Authority-Evaluation-Interface.md) | Authority Evaluation Interface | Draft | 0.1 | Normative. Enforcement-point-to-evaluator call as an AuthZEN 1.0 profile: permit/deny/escalate/simulate verdicts, decision ID on every evaluation, authority snapshots, idempotency, fail closed, outcome report, decision envelopes. Schemas and test vectors pending |
 
 ### Status definitions
 
